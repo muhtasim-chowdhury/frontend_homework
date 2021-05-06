@@ -1,5 +1,5 @@
 # Casetext Homework Assignment
-Your task in this challenge is to build a demo web app that is a functional ATM machine. We aren’t expecting you to spend a tremendous amount of time on this, so non-production worthy code is a-ok. Please use a stubbed backend as if you were interacting with a server (ie reading from a file or localstorage). Feel free to add any bells and whistles you’d like.
+Your task in this challenge is to build a demo web app that is a functional ATM machine. We aren’t expecting you to spend a tremendous amount of time on this (i.e. ~2-4hrs), so non-production worthy code is a-ok. Please use a stubbed backend as if you were interacting with a server (ie reading from a file or localstorage). Feel free to add any bells and whistles you’d like.
 
 ## Guidelines:
 - Please work in Javascript or Typescript and use any frameworks or libraries you like.

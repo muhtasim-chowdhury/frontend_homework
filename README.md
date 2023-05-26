@@ -9,7 +9,7 @@ Your task in this challenge is to build a demo web app that is a functional ATM 
 - Funds should be correctly reflected after a deposit or withdrawal
 - A users card type should be highlighted once they have entered their correct PIN
 - Please put your code up on your github account.  
-- Please include instructions about how we can run your app. (if your solution works better one browser over the others, let us know which one)
+- Please include instructions about how we can run your app. (if your solution works better in one browser over the others, let us know which one)
 
 ## Optional:
 - If you feel like going above and beyond, wire up the client to a NodeJS backend server with express and handle all transactions on the server.

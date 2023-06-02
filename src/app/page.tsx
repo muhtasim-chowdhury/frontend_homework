@@ -242,7 +242,7 @@ export default function ATM() {
           />
           <Image
             src="/graffiti.png"
-            alt="Atm Sign"
+            alt="Graffiti"
             className={styles.graffiti}
             width={150}
             height={40}
@@ -278,7 +278,7 @@ export default function ATM() {
             width={190}
             height={110}
             className={styles.sticker_graf}
-            alt="Systems"
+            alt="sticker with graffiti"
           />
         </div>
       </div>

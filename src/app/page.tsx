@@ -8,29 +8,43 @@ const cardTypes = ['star', 'pulse', 'maestro', 'mastercard', 'plus', 'visa'] as 
 type CardType = typeof cardTypes[number];
 
 interface User {
-  name: string,
-  cardType: CardType,
+  id: string
+  name: string
+  cardType: CardType
   balance: number
 }
 
+interface AllUserData {
+  [pin: string]: User
+}
+
 // initial user data
-const pinToUser: { [pin: string]: User } = {
+const pinToUser: AllUserData = {
   '1234': {
+    id: 'fg3tg33',
     name: 'Peter Parker',
     cardType: 'star',
     balance: 1000
   },
   '3333': {
+    id: 'cfgsfcg',
     name: 'J. Jonah Jameson',
     cardType: 'pulse',
     balance: 50000
   },
   '0000': {
+    id: 'cgeg43q',
     name: 'Mary Jane',
     cardType: 'plus',
     balance: 5000
   }
 }
+
+// initilize userdata in localstorage if it doesn't exist there yet
+if (!localStorage.getItem('users')) {
+  localStorage.setItem('users', JSON.stringify(pinToUser))
+}
+
 
 enum Screen {
   Welcome = "WELCOME",
@@ -39,6 +53,24 @@ enum Screen {
   PinInput = "PININPUT",
   Deposit = "DEPOSIT",
   Withdraw = "WITHDRAW"
+}
+
+const getUsersData = () => {
+  const usersStr = localStorage.getItem('users') || '';
+  const users: AllUserData = JSON.parse(usersStr)
+  return users
+}
+
+const persistChangeToBalance = (user: User, updatedBalance: number) => {
+  const usersData = getUsersData()
+  for (const pin in usersData) {
+    let userFromLocalStorage = usersData[pin];
+    
+    if (userFromLocalStorage.id === user.id) {
+      userFromLocalStorage.balance = updatedBalance;
+    }
+  }
+  localStorage.setItem('users', JSON.stringify(usersData))
 }
 
 export default function ATM() {
@@ -104,7 +136,9 @@ export default function ATM() {
             handleClick = () => {
               // normally would make API call to backend to fetch user data
               // but in the interest of saving time, using mock data
-              const userObject = pinToUser[inputValue];
+              const usersStr = localStorage.getItem('users') || '';
+              const users: AllUserData = JSON.parse(usersStr)
+              const userObject = users[inputValue];
               if (!userObject) {
                 return alert("invalid user")
               }
@@ -118,8 +152,10 @@ export default function ATM() {
           case 7: label = "Back"; handleClick = () => { setScreen(Screen.Dashboard) }; break;
           case 8: label = "Confirm";
             handleClick = () => {
-              setUser({ ...user, balance: user?.balance + Number(inputValue) });
+              const updatedBalance = user?.balance + Number(inputValue);
+              setUser({ ...user, balance: updatedBalance});
               setScreen(Screen.Dashboard);
+              persistChangeToBalance(user, updatedBalance);
             }
         }
       }
@@ -128,12 +164,14 @@ export default function ATM() {
           case 7: label = "Back"; handleClick = () => { setScreen(Screen.Dashboard) }; break;
           case 8: label = "Confirm";
             handleClick = () => {
-              if (user?.balance < Number(inputValue)) {
+              const updatedBalance = user?.balance - Number(inputValue);
+              if (updatedBalance < 0) {
                 return alert("Not Enough Funds")
               }
 
-              setUser({ ...user, balance: user?.balance - Number(inputValue) });
+              setUser({ ...user, balance: updatedBalance});
               setScreen(Screen.Dashboard);
+              persistChangeToBalance(user, updatedBalance);
             }
         }
       }
@@ -151,6 +189,7 @@ export default function ATM() {
         <input
           value={inputValue}
           onChange={e => setInputValue(e.target.value)}
+          autoFocus
         />
       )
     }

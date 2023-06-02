@@ -1,0 +1,91 @@
+.main {
+    background: #9f80ac;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* padding-top: 6%; */
+}
+
+.atm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.atm_sign_ctn {
+    position: relative;
+}
+
+.atm_sign {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #146bae;
+}
+
+.graffiti {
+    position: absolute;
+    top: 30%;
+    left: 45%;
+}
+
+.ctn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f1f0e6;
+    width: 290px;
+    border-top: #bebebe 5px solid;
+    flex-grow: 1;
+}
+
+.img_ctn {
+    height: 20px;
+    overflow: hidden;
+}
+
+.screen_grid {
+    display: grid;
+    margin-top: 20px;
+    width: 95%;
+    height: 230px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 5px;
+}
+
+.screen_grid button {
+    background-color: #c1c1c1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.screen_grid input {
+    grid-area: 4 / 3 / span 1 / 5;
+}
+
+.screen_background {
+    grid-area: 1 / 2 / 7 / 6;
+    background: #7eb5d5;
+    border: #e1e1d6 2px solid;
+}
+
+.header {
+    grid-area: 1 / 2 / span 2 / 6;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.screen_options {
+    color: white;
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

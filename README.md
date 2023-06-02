@@ -45,6 +45,8 @@ The following PIN numbers can be used to log in:
 
 ## Dev Notes:
 
+This code was developed and tested in Google Chrome only
+
 Numbers 1-8 in `page.tsx` refer to ATM buttons
 
 1-4 for left side buttons, 5-8 for right side butttons

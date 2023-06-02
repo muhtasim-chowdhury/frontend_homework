@@ -38,3 +38,7 @@ npm run dev
 Numbers 1-8 in `page.tsx` refer to ATM buttons
 
 1-4 for left side buttons, 5-8 for right side butttons
+
+Bulk of my code is in `page.tsx` and `page.module.css`
+
+Provided assets are in `public` folder

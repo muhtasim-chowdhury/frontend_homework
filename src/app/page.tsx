@@ -175,7 +175,7 @@ export default function ATM() {
   }
 
   // this might be a hacky way to fade the card types, a compromise to save time
-  // ideally instead of doing this, would have individual pngs for each card type and conditionally render them instead of only having 1 png containing all card types
+  // ideally instead of doing this, would have individual pngs for each card type and conditionally render them instead of only having 1 png file containing all card types
   const addCoverToFadeCardTypes = () => {
     return (
       <div className={styles.cover}>
@@ -208,7 +208,7 @@ export default function ATM() {
             height={40}
           />
         </div>
-        <div className={styles.ctn}>
+        <div className={styles.atm_body}>
           <div className={styles.img_ctn}>
             <Image
               src="/creditcard_sprite.png"

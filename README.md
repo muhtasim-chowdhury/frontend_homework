@@ -32,6 +32,16 @@ Run app
 npm run dev
 ```
 
+## How to login as a user:
+
+The following PIN numbers can be used to log in:
+
+`1234` as `Peter Parker`
+
+`3333` as `J. Jonah Jameson`
+
+`0000` as `Mary Jane`
+
 
 ## Dev Notes:
 

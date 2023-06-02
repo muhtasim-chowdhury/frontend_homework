@@ -52,7 +52,7 @@ export default function ATM() {
     if (screen === Screen.Welcome) {
       setUser(null);
     }
-  }, [screen])
+  }, [screen]);
 
   const leftSideButtons = () => {
     return [1, 2, 3, 4].map(btnNum => {
@@ -97,13 +97,9 @@ export default function ATM() {
         }
       } else if (screen === Screen.PinInput) {
         switch (btnNum) {
-          case 7: label = "Back"; 
-            handleClick = () => {
-              if (user) {
-                return setScreen(Screen.Dashboard)
-              }
-              setScreen(Screen.Welcome)
-            }; break;
+          case 7: label = "Back";
+            handleClick = () => user ? setScreen(Screen.Dashboard) : setScreen(Screen.Welcome);
+            break;
           case 8: label = "Confirm";
             handleClick = () => {
               // normally would make API call to backend to fetch user data
@@ -119,26 +115,26 @@ export default function ATM() {
       }
       else if (screen === Screen.Deposit && user) {
         switch (btnNum) {
-          case 7: label = "Back"; handleClick = () => {setScreen(Screen.Dashboard)}; break;
+          case 7: label = "Back"; handleClick = () => { setScreen(Screen.Dashboard) }; break;
           case 8: label = "Confirm";
-          handleClick = () => {
-            setUser({ ...user, balance: user?.balance + Number(inputValue) });
-            setScreen(Screen.Dashboard);
-          }
+            handleClick = () => {
+              setUser({ ...user, balance: user?.balance + Number(inputValue) });
+              setScreen(Screen.Dashboard);
+            }
         }
       }
       else if (screen === Screen.Withdraw && user) {
         switch (btnNum) {
-          case 7: label = "Back"; handleClick = () => {setScreen(Screen.Dashboard)}; break;
+          case 7: label = "Back"; handleClick = () => { setScreen(Screen.Dashboard) }; break;
           case 8: label = "Confirm";
-          handleClick = () => {
-            if (user?.balance < Number(inputValue)) {
-              return alert("Not Enough Funds")
-            }
+            handleClick = () => {
+              if (user?.balance < Number(inputValue)) {
+                return alert("Not Enough Funds")
+              }
 
-            setUser({ ...user, balance: user?.balance - Number(inputValue) });
-            setScreen(Screen.Dashboard);
-          }
+              setUser({ ...user, balance: user?.balance - Number(inputValue) });
+              setScreen(Screen.Dashboard);
+            }
         }
       }
 
@@ -185,9 +181,9 @@ export default function ATM() {
       <div className={styles.cover}>
         {cardTypes.map(cardType => {
           if (cardType === user?.cardType) {
-            return <div className={styles.highlighted_card_type}></div>
+            return <div key={cardType} className={styles.highlighted_card_type}></div>
           } else {
-            return <div className={styles.faded_card_type}></div>
+            return <div key={cardType} className={styles.faded_card_type}></div>
           }
         })}
       </div>
@@ -199,13 +195,13 @@ export default function ATM() {
       <div className={styles.atm}>
         <div className={styles.atm_sign_ctn}>
           <Image
-            src="/assets/atm_sign.png"
+            src="/atm_sign.png"
             alt="Atm Sign"
             width={330}
             height={120}
           />
           <Image
-            src="/assets/graffiti.png"
+            src="/graffiti.png"
             alt="Atm Sign"
             className={styles.graffiti}
             width={150}
@@ -215,7 +211,7 @@ export default function ATM() {
         <div className={styles.ctn}>
           <div className={styles.img_ctn}>
             <Image
-              src="/assets/creditcard_sprite.png"
+              src="/creditcard_sprite.png"
               alt="Credit Card"
               width={230}
               height={40}
@@ -231,14 +227,14 @@ export default function ATM() {
             {viewBalance()}
           </div>
           <Image
-            src="/assets/systems.png"
+            src="/systems.png"
             width={60}
             height={7}
             alt="Systems"
             className={styles.systems}
           />
           <Image
-            src="/assets/sticker_graf.png"
+            src="/sticker_graf.png"
             width={190}
             height={110}
             className={styles.sticker_graf}

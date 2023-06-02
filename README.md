@@ -15,5 +15,26 @@ Your task in this challenge is to build a demo web app that is a functional ATM 
 - If you feel like going above and beyond, wire up the client to a NodeJS backend server with express and handle all transactions on the server.
 
 ## Mocks:
-![Mock 1](assets/Mock_1.png "Mock")
-![Mock 2](assets/Mock_2.png "Mock2")
+![Mock 1](public/Mock_1.png "Mock")
+![Mock 2](public/Mock_2.png "Mock2")
+
+
+## How to Run:
+
+Install node modules
+```
+npm i
+```
+
+Run app
+
+```
+npm run dev
+```
+
+
+## Dev Notes:
+
+Numbers 1-8 in `page.tsx` refer to ATM buttons
+
+1-4 for left side buttons, 5-8 for right side butttons

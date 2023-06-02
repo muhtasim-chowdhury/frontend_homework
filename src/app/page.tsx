@@ -29,70 +29,25 @@ enum Screen {
 }
 
 export default function ATM() {
-  const [showInputBox, setShowInputBox] = useState(false);
+  const [screen, setScreen] = useState(Screen.Welcome);
   const [inputValue, setInputValue] = useState('');
-  const [screenText, setScreenText] = useState({
-    header: 'Welcome to the ATM',
-    1: '',
-    2: '',
-    3: '',
-    4: '',
-    5: '',
-    6: '',
-    7: '',
-    8: 'Enter PIN'
-  })
   const [user, setUser] = useState<null | User>(null);
-
-  const changeScreen = (screenType: Screen, user?: User) => {
-    if (screenType === Screen.Welcome) {
-      setScreenText({
-        header: 'Welcome to the ATM',
-        1: '',
-        2: '',
-        3: '',
-        4: '',
-        5: '',
-        6: '',
-        7: '',
-        8: 'Enter PIN'
-      })
-    } else if (screenType === Screen.PinInput) {
-      setShowInputBox(true);
-      setScreenText({
-            header: 'Enter PIN',
-            1: '',
-            2: '',
-            3: '',
-            4: '',
-            5: '',
-            6: '',
-            7: '',
-            8: ''
-      })
-    } else if (screenType === Screen.Dashboard && user) {
-      setShowInputBox(false);
-      setScreenText({
-        header: `Hi ${user.name}! Please make a choice`,
-        1: '',
-        2: '',
-        3: 'Withdraw',
-        4: 'Deposit',
-        5: '',
-        6: 'Exit',
-        7: 'Balance',
-        8: 'Re-Enter PIN'
-      })
-    }
-  }
 
   const leftSideButtons = () => {
     return [1, 2, 3, 4].map(btnNum => {
       const gridRowStart = btnNum + 2;
+      let handleClick = () => {}
+      let label = '';
+      if (screen === Screen.Dashboard) {
+        switch(btnNum) {
+          case 3: label = "Withdraw"; break; 
+          case 4: label = "Deposit"; break; 
+        }
+      }
 
       return (<Fragment key={btnNum}>
         <button style={{gridArea: `${gridRowStart} / 1 / span 1 / span 1`}}></button>
-        <div className={styles.screen_options} style={{gridArea: `${gridRowStart} / 2 / span 1 / span 2`}}>{screenText[btnNum]}</div>
+        <div className={styles.screen_options} style={{gridArea: `${gridRowStart} / 2 / span 1 / span 2`}}>{label}</div>
       </Fragment>)
     })
   }
@@ -101,16 +56,26 @@ export default function ATM() {
     return [5, 6, 7, 8].map(btnNum => {
       const gridRowStart = btnNum - 2;
       let handleClick = () => {}
-
-      if (btnNum === 8) {
-        handleClick = () => {
-          changeScreen(Screen.PinInput);
+      let label = '';
+      if (screen === Screen.Welcome) {
+        if (btnNum === 8) {
+          label = 'Enter PIN'
+          handleClick = () => {
+            setScreen(Screen.PinInput);
+          }
+        }
+      } else if (screen === Screen.Dashboard) {
+        switch(btnNum) {
+          case 6: label = "Exit"; break; 
+          case 7: label = "Balance"; break; 
+          case 8: label = "Re-Enter PIN"; break; 
         }
       }
 
+
       return (<Fragment key={btnNum}>
         <button onClick={handleClick} style={{gridArea: `${gridRowStart} / 6 / span 1 / span 1`}}></button>
-        <div className={styles.screen_options} style={{gridArea: `${gridRowStart} / 4 / span 1 / span 2`}}>{screenText[btnNum]}</div>
+        <div className={styles.screen_options} style={{gridArea: `${gridRowStart} / 4 / span 1 / span 2`}}>{label}</div>
       </Fragment>)
     })
   }
@@ -126,10 +91,10 @@ export default function ATM() {
       // but in the interest of saving time, using mock data
       const userObject = pinToUser[inputValue];
       setUser(userObject);
-      changeScreen(Screen.Dashboard, userObject);
+      setScreen(Screen.Dashboard);
     }
 
-    if (showInputBox) {
+    if (screen === Screen.PinInput) {
       return (
         <input 
           value={inputValue} 
@@ -137,6 +102,14 @@ export default function ATM() {
           onKeyUp={handleEnter}
         />
       )
+    }
+  }
+
+  const getHeader = () => {
+    switch(screen) {
+      case Screen.Welcome: return 'Welcome to the ATM';
+      case Screen.PinInput: return 'Please enter PIN';
+      case Screen.Dashboard: return `Hi ${user?.name}! Please make a choice`
     }
   }
 
@@ -170,7 +143,7 @@ export default function ATM() {
           </div>
           <div className={styles.screen_grid}>
             <div className={styles.screen_background}></div>
-            <div className={styles.header}>{screenText.header}</div>
+            <div className={styles.header}>{getHeader()}</div>
             {leftSideButtons()}
             {rightSideButtons()}
             {inputBox()}

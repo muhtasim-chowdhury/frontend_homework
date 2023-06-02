@@ -40,12 +40,6 @@ const pinToUser: AllUserData = {
   }
 }
 
-// initilize userdata in localstorage if it doesn't exist there yet
-if (!localStorage.getItem('users')) {
-  localStorage.setItem('users', JSON.stringify(pinToUser))
-}
-
-
 enum Screen {
   Welcome = "WELCOME",
   Dashboard = "DASHBOARD",
@@ -77,6 +71,13 @@ export default function ATM() {
   const [screen, setScreen] = useState(Screen.Welcome);
   const [inputValue, setInputValue] = useState('');
   const [user, setUser] = useState<null | User>(null);
+
+  useEffect(() => {
+    // initilize userdata in localstorage if it doesn't exist there yet
+    if (!localStorage.getItem('users')) {
+      localStorage.setItem('users', JSON.stringify(pinToUser))
+    }
+  }, [])
 
   useEffect(() => {
     setInputValue('');

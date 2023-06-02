@@ -36,16 +36,19 @@
     width: 370px;
     border-top: #bebebe 5px solid;
     flex-grow: 1;
+    position: relative;
 }
 
 .img_ctn {
     height: 20px;
     overflow: hidden;
+    position: relative;
+    margin-top: 10px;
 }
 
 .screen_grid {
     display: grid;
-    margin-top: 20px;
+    margin-top: 10px;
     width: 95%;
     height: 230px;
     grid-template-columns: repeat(6, 1fr);
@@ -73,7 +76,7 @@
 .screen_background {
     grid-area: 1 / 2 / 7 / 6;
     background: #7eb5d5;
-    border: #e1e1d6 2px solid;
+    border: #e1e1d6 4px solid;
 }
 
 .header {
@@ -83,7 +86,7 @@
     justify-content: center;
     align-items: center;
     color: white;
-    padding: 5px;
+    padding: 10px;
 }
 
 .left_btn_text {
@@ -112,4 +115,36 @@
 
 .right_btn_text::after {
     content: '—'
+}
+
+.cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 105%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.highlighted_card_type {
+    flex-grow: 1;
+}
+
+.faded_card_type {
+    flex-grow: 1;
+    background: #f1f0e6;
+    opacity: 90%;
+}
+
+.systems {
+    margin-left: 170px;
+    margin-top: 5px;
+}
+
+.sticker_graf {
+    position: absolute;
+    top: 270px;
+    left: 10px;
 }
